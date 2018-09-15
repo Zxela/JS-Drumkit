@@ -64,9 +64,7 @@
       if (ev.propertyName !== 'transform') return
       ev.target.classList.remove('playing')
     }
-
-
-    window.addEventListener('keydown', function (ev) {
+    function playing(ev) {
       const audio = document.querySelector(`audio[data-key="${ev.keyCode}"]`)
       const key = document.querySelector(`.key[data-key="${ev.keyCode}"]`)
       if (!audio) return
@@ -74,12 +72,13 @@
       key.classList.add('playing')
       audio.currentTime = 0
       audio.play()
-    })
+    }
+
 
     const keys = Array.from(document.querySelectorAll(`.key`))
-    keys.forEach(key => {
-      key.addEventListener('transitionend', removePlaying)
-    });
+    keys.forEach(key => key.addEventListener('transitionend', removePlaying));
+    window.addEventListener('keydown', playing)
+
   </script>
 
 
